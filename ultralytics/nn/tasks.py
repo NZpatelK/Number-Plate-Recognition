@@ -26,7 +26,7 @@ class BaseModel(nn.Module):
         > `forward` is a wrapper for `_forward_once` that runs the model on a single scale
 
         Args:
-          x: the input image
+          x: the input
           profile: whether to profile the model. Defaults to False
           visualize: if True, will return the intermediate feature maps. Defaults to False
 
