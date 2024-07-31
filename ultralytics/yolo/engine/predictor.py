@@ -72,11 +72,11 @@ class BasePredictor:
         if overrides is None:
             overrides = {}
         self.args = get_config(config, overrides)
-        project = self.args.project or Path(SETTINGS['runs_dir']) / self.args.task
-        name = self.args.name or f"{self.args.mode}"
-        self.save_dir = increment_path(Path(project) / name, exist_ok=self.args.exist_ok)
-        if self.args.save:
-            (self.save_dir / 'labels' if self.args.save_txt else self.save_dir).mkdir(parents=True, exist_ok=True)
+        # project = self.args.project or Path(SETTINGS['runs_dir']) / self.args.task
+        # name = self.args.name or f"{self.args.mode}"
+        # self.save_dir = increment_path(Path(project) / name, exist_ok=self.args.exist_ok)
+        # if self.args.save:
+        #     (self.save_dir / 'labels' if self.args.save_txt else self.save_dir).mkdir(parents=True, exist_ok=True)
         if self.args.conf is None:
             self.args.conf = 0.25  # default conf=0.25
         self.done_setup = False
@@ -168,7 +168,7 @@ class BasePredictor:
         for batch in self.dataset:
             self.run_callbacks("on_predict_batch_start")
             path, im, im0s, vid_cap, s = batch
-            visualize = increment_path(self.save_dir / Path(path).stem, mkdir=True) if self.args.visualize else False
+            visualize = increment_path(self.save_dir / Path(path).stem, mkdir=False) if self.args.visualize else False
             with self.dt[0]:
                 im = self.preprocess(im)
                 if len(im.shape) == 3:
@@ -191,8 +191,8 @@ class BasePredictor:
                 if self.args.show:
                     self.show(p)
 
-                if self.args.save:
-                    self.save_preds(vid_cap, i, str(self.save_dir / p.name))
+                # if self.args.save:
+                #     self.save_preds(vid_cap, i, str(self.save_dir / p.name))
 
             # Print time (inference-only)
             LOGGER.info(f"{s}{'' if len(preds) else '(no detections), '}{self.dt[1].dt * 1E3:.1f}ms")
@@ -206,7 +206,8 @@ class BasePredictor:
             % t)
         if self.args.save_txt or self.args.save:
             s = f"\n{len(list(self.save_dir.glob('labels/*.txt')))} labels saved to {self.save_dir / 'labels'}" if self.args.save_txt else ''
-            LOGGER.info(f"Results saved to {colorstr('bold', self.save_dir)}{s}")
+            # LOGGER.info(f"Results saved to  {colorstr('bold', self.save_dir)}{s}")
+            LOGGER.info(f"Successful capture")
 
         self.run_callbacks("on_predict_end")
         return self.all_outputs
