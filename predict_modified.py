@@ -25,7 +25,6 @@ def perform_ocr_on_image(img, coordinates):
     for res in results:
         if len(results) == 1 or (len(res[1]) > 6 and res[2] > 0.2):
             text = res[1]
-            print("number: ", text)
 
     return str(text)
 
@@ -96,7 +95,8 @@ class DetectionPredictor(BasePredictor):
                 
                 
                 text_ocr = perform_ocr_on_image(im0,xyxy)
-                label = text_ocr 
+                label = text_ocr
+                self.result = label
                 
                 self.annotator.box_label(xyxy, label, color=colors(c, True))
             if self.args.save_crop:
@@ -109,6 +109,7 @@ class DetectionPredictor(BasePredictor):
         return log_string
 
 
+
 @hydra.main(version_base=None, config_path=str(DEFAULT_CONFIG.parent), config_name=DEFAULT_CONFIG.name)
 def predict(cfg):
     cfg.model = 'ultralytics/runs/detect/train_model/weights/best.pt'
@@ -117,9 +118,9 @@ def predict(cfg):
     predictor = DetectionPredictor(cfg)
     predictor()
 
-    # print("intro: ", cfg.model, cfg.source, cfg.imgsz)
+    print("predict: ", predictor.result)
 
 
 
 if __name__ == "__main__":
-    predict()
+   predict()
