@@ -68,7 +68,7 @@ class DetectionPredictor(BasePredictor):
 
         self.data_path = p
         # save_path = str(self.save_dir / p.name)  # im.jpg
-        # self.txt_path = str(self.save_dir / 'labels' / p.stem) + ('' if self.dataset.mode == 'image' else f'_{frame}')
+        self.txt_path = str(self.save_dir / 'labels' / p.stem) + ('' if self.dataset.mode == 'image' else f'_{frame}')
         log_string += '%gx%g ' % im.shape[2:]  # print string
         self.annotator = self.get_annotator(im0)
 
@@ -95,8 +95,7 @@ class DetectionPredictor(BasePredictor):
                 
                 
                 text_ocr = perform_ocr_on_image(im0,xyxy)
-                label = text_ocr
-                self.result = label
+                label = text_ocr 
                 
                 self.annotator.box_label(xyxy, label, color=colors(c, True))
             if self.args.save_crop:
@@ -109,18 +108,13 @@ class DetectionPredictor(BasePredictor):
         return log_string
 
 
-
 @hydra.main(version_base=None, config_path=str(DEFAULT_CONFIG.parent), config_name=DEFAULT_CONFIG.name)
 def predict(cfg):
-    cfg.model = 'ultralytics/runs/detect/train_model/weights/best.pt'
+    cfg.model = cfg.model or "best.pt"
     cfg.imgsz = check_imgsz(cfg.imgsz, min_dim=2)  # check image size
-    cfg.source = 'temp.jpg'
+    cfg.source = cfg.source if cfg.source is not None else ROOT / "assets"
     predictor = DetectionPredictor(cfg)
     predictor()
 
-    print("predict: ", predictor.result)
-
-
-
 if __name__ == "__main__":
-   predict()
+    predict()
