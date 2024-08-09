@@ -303,14 +303,14 @@ class LoadImages:
 
             self.frame += 1
             # im0 = self._cv2_rotate(im0)  # for use if cv2 autorotation is False
-            s = f'hello video {self.count + 1}/{self.nf} ({self.frame}/{self.frames}): '
+            s = f'video {self.count + 1}/{self.nf} ({self.frame}/{self.frames}): '
 
         else:
             # Read image
             self.count += 1
             im0 = cv2.imread(path)  # BGR
             assert im0 is not None, f'Image Not Found {path}'
-            s = f'image {self.count}/{self.nf} {path}: '
+            s = f'image {self.count}/{self.nf}: '
 
         if self.transforms:
             im = self.transforms(im0)  # transforms

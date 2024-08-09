@@ -105,14 +105,15 @@ class DetectionPredictor(BasePredictor):
                              file=self.save_dir / 'crops' / self.model.model.names[c] / f'{self.data_path.stem}.jpg',
                              BGR=True)
 
-        return log_string
+        return "Number Plate: " + text_ocr + " "
 
 
 @hydra.main(version_base=None, config_path=str(DEFAULT_CONFIG.parent), config_name=DEFAULT_CONFIG.name)
 def predict(cfg):
     cfg.model = cfg.model or "best.pt"
     cfg.imgsz = check_imgsz(cfg.imgsz, min_dim=2)  # check image size
-    cfg.source = cfg.source if cfg.source is not None else ROOT / "assets"
+    # cfg.source = cfg.source if cfg.source is not None else ROOT / "assets"
+    cfg.source = "assets"
     predictor = DetectionPredictor(cfg)
     predictor()
 
