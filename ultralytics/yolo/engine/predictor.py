@@ -73,9 +73,9 @@ class BasePredictor:
         if overrides is None:
             overrides = {}
         self.args = get_config(config, overrides)
-        project = self.args.project or Path(SETTINGS['runs_dir']) / self.args.task
-        name = self.args.name or f"{self.args.mode}"
-        self.save_dir = increment_path(Path(project) / name, exist_ok=self.args.exist_ok)
+        # project = self.args.project or Path(SETTINGS['runs_dir']) / self.args.task
+        # name = self.args.name or f"{self.args.mode}"
+        self.save_dir = increment_path(Path('results') / 'result_no', exist_ok=self.args.exist_ok)
         if self.args.save:
             (self.save_dir / 'labels' if self.args.save_txt else self.save_dir).mkdir(parents=True, exist_ok=True)
         if self.args.conf is None:
