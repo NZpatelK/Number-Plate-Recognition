@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2c5ac03f-2702-4ba0-9764-ebe055c8c173" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/predict_modified.py" beforeDir="false" afterPath="$PROJECT_DIR$/predict_modified.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,11 +53,11 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/videos" />
+      <recent name="$PROJECT_DIR$/assets/imges" />
       <recent name="$PROJECT_DIR$/assets" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/data" />
-      <recent name="$PROJECT_DIR$/models/weights" />
-      <recent name="$PROJECT_DIR$/model/weights" />
     </key>
   </component>
   <component name="RunManager" selected="Python.predict_modified">
